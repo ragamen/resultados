@@ -115,7 +115,7 @@ class _MyWidgetState extends State<MyWidget> {
           child: Column(
             children: [
               Center(
-                child: Text(prov.newArray01[0].hora.substring(5),
+                child: Text(prov.newArray01[0].operador,
                     style: TextStyle(fontSize: 25)),
               ),
               Expanded(
@@ -172,7 +172,7 @@ class _MyWidgetState extends State<MyWidget> {
           child: Column(
             children: [
               Center(
-                child: Text(prov.newArray02[0].hora.substring(5),
+                child: Text(prov.newArray02[0].operador,
                     style: TextStyle(fontSize: 25)),
               ),
               Expanded(
