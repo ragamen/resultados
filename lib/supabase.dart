@@ -10,7 +10,8 @@ class SupaBaseHandler {
     final data = await cliente
         .from('loterias')
         .select('operador,numero,nombre,urlimage,hora')
-        .order('operador');
+        .order('operador', ascending: true)
+        .order('hora', ascending: true);
     int count = data.length;
     List<Articulos> articulos = [];
     for (int i = 0; i < count; i++) {

@@ -38,6 +38,24 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   void updateArrays() async {
+    for (int i = 0; i < gridMap.length; i + 24) {
+      await Future.delayed(const Duration(seconds: 5));
+      newArray1 = gridMap.sublist(i, i + 12);
+      newArray2 = gridMap.sublist(i + 12, i + 24);
+      final prov = Provider.of<GridProvider>(context, listen: false);
+      setState(() {
+        prov.setArray01(newArray1);
+        prov.setArray02(newArray2);
+      });
+      i = i + 24;
+      newArray1 = [];
+      newArray2 = [];
+      //  imprime = false;
+    }
+    seguir = true;
+  }
+
+/*  void updateArrays() async {
     // final prov = Provider.of<GridProvider>(context, listen: false);
     var compara = '';
     if (gridMap.isNotEmpty) {
@@ -48,10 +66,18 @@ class _MyWidgetState extends State<MyWidget> {
     int contx2 = 0;
     var imprime = false;
     var inicio = 0;
+    var suma = 0;
+    var compara1 = gridMap[0].operador.trim();
     for (int i = 0; i < gridMap.length; i++) {
-      print(gridMap[i].operador);
+      if (compara1 == gridMap[i].operador.trim()) {
+        suma = suma + 1;
+      } else {
+        print(suma);
+        suma = 1;
+        compara1 = gridMap[i].operador.trim();
+      }
     }
-    print('Longitud de la Lista---' + gridMap.length.toString());
+//    print('Longitud de la Lista---' + gridMap.length.toString());
     for (int i = 0; i < gridMap.length; i++) {
       if (compara == gridMap[i].operador.trim()) {
         if (array == 1) {
@@ -100,7 +126,7 @@ class _MyWidgetState extends State<MyWidget> {
     seguir = true;
     print("valor de i -->");
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<GridProvider>(context, listen: false);
