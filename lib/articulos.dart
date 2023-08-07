@@ -1,15 +1,17 @@
 class Articulos {
-  final String operador;
-  final String numero;
-  final String urlimage;
-  final String nombre;
-  final String hora;
-  const Articulos({
+  String operador;
+  String numero;
+  String urlimage;
+  String nombre;
+  String hora;
+  String fecha;
+  Articulos({
     required this.operador,
     required this.numero,
     required this.urlimage,
     required this.nombre,
     required this.hora,
+    required this.fecha,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -17,7 +19,8 @@ class Articulos {
       'urlimage': urlimage,
       'numero': numero,
       'nombre': nombre,
-      'hora': hora
+      'hora': hora,
+      'fecha': fecha
     };
   }
 
@@ -26,5 +29,6 @@ class Articulos {
         urlimage = map["urlimage"],
         numero = map["numero"],
         nombre = map["nombre"],
-        hora = map["hora"];
+        hora = map["hora"],
+        fecha = map["fecha"];
 }
