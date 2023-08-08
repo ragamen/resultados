@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:resultados/supabase.dart';
 //import 'package:supabase_flutter/supabase_flutter.dart';
@@ -25,6 +28,7 @@ class _MyWidgetState extends State<MyWidget> {
   int currentIndex = 0;
   bool seguir = true;
   int pageActual = 0;
+  late Timer timer;
   List<Widget> paginas = [
     const MyWidget(),
     const Loterias(),
@@ -34,8 +38,17 @@ class _MyWidgetState extends State<MyWidget> {
   void initState() {
     //final prov = Provider.of<GridProvider>(context, listen: false);
     super.initState();
-    String xfecha = DateTime.now().toString().substring(0, 10);
+//    String xfecha = DateTime.now().toString().substring(0, 10);
+    final fecha = DateTime.now();
+    final formato = DateFormat('dd/MM/yyyy');
+    final fechaFormateada = formato.format(fecha);
+    String xfecha = fechaFormateada;
     leerGanadores(xfecha);
+    setState(() {
+      seguir = true;
+      timer = Timer.periodic(
+          const Duration(minutes: 5), (Timer t) => leerGanadores(xfecha));
+    });
   }
 
   leerGanadores(xfecha) async {

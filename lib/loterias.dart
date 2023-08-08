@@ -5,6 +5,7 @@ import 'package:resultados/supabase.dart';
 import 'articulos.dart';
 import 'gridprovider.dart';
 import 'lista.dart';
+import 'operador.dart';
 
 class Loterias extends StatefulWidget {
   const Loterias({super.key});
@@ -107,30 +108,24 @@ class _LoteriasState extends State<Loterias> {
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 117, 231, 251),
                   borderRadius: BorderRadius.circular(20)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  //  focusNode: _textFocusNode,
-                  cursorColor: Colors.white,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      hintText: 'Buscar Operador, {fecha} opcional',
-                      contentPadding: EdgeInsets.all(8)),
-                  controller: xloteria,
-                  onSubmitted: (value) {
+              child: DropdownButtonFormField(
+                  items: Operador.operadores.map((e) {
+                    /// Ahora creamos "e" y contiene cada uno de los items de la lista.
+                    return DropdownMenuItem(
+                      value: e,
+                      child: Text(e),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    //    print(value);
                     if (mounted) {
                       setState(() {
                         gridMapSearch = [];
                         for (int index = 0; index < gridMap.length; index++) {
                           if (gridMap[index].operador.trim().toLowerCase() ==
-                                  xloteria.text.trim().toLowerCase() &&
+                                  value!.trim().toLowerCase() &&
                               gridMap[index].fecha == xFecha.text) {
                             gridMapSearch.add(gridMap[index]);
-                            //gridMapSearch[xj] = gridMap[index];
                           }
                           if (gridMapSearch.isEmpty) {
                             prov.setArray01(Lista.articulos);
@@ -139,15 +134,49 @@ class _LoteriasState extends State<Loterias> {
                             prov.setArray01(gridMapSearch);
                             seguir = true;
                           }
-                          //  print(gridMapSearch[index]);
                         }
-                        //                xloteria.text = value;
-                        //                seguir = true;
                       });
                     }
-                  },
-                ),
-              ),
+                  }),
+
+/*              TextField(
+                //  focusNode: _textFocusNode,
+                cursorColor: Colors.white,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintText: 'Buscar Operador, {fecha} opcional',
+                    contentPadding: EdgeInsets.all(8)),
+                controller: xloteria,
+                onSubmitted: (value) {
+                  if (mounted) {
+                    setState(() {
+                      gridMapSearch = [];
+                      for (int index = 0; index < gridMap.length; index++) {
+                        if (gridMap[index].operador.trim().toLowerCase() ==
+                                xloteria.text.trim().toLowerCase() &&
+                            gridMap[index].fecha == xFecha.text) {
+                          gridMapSearch.add(gridMap[index]);
+                          //gridMapSearch[xj] = gridMap[index];
+                        }
+                        if (gridMapSearch.isEmpty) {
+                          prov.setArray01(Lista.articulos);
+                        }
+                        if (gridMapSearch.length == 12) {
+                          prov.setArray01(gridMapSearch);
+                          seguir = true;
+                        }
+                        //  print(gridMapSearch[index]);
+                      }
+                      //                xloteria.text = value;
+                      //                seguir = true;
+                    });
+                  }
+                },
+              ),*/
             ),
           ),
         ],
