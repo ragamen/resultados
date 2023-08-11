@@ -38,6 +38,10 @@ class _MyWidgetState extends State<MyWidget> {
   void initState() {
     //final prov = Provider.of<GridProvider>(context, listen: false);
     super.initState();
+    //
+    // Verificar status del usuario si esta activo para recibir la informacion
+    //
+
 //    String xfecha = DateTime.now().toString().substring(0, 10);
     final fecha = DateTime.now();
     final formato = DateFormat('dd/MM/yyyy');
@@ -141,7 +145,7 @@ class _MyWidgetState extends State<MyWidget> {
                                       //                        Image.network(
                                       //                          "https://qpewttmefqniyqflyjmu.supabase.co/storage/v1/object/public/media/imagenes/1687730617564000.png",
                                       Image.asset(
-                                        prov.newArray01[index].nombre + '.png',
+                                        '${'assets/' + prov.newArray01[index].nombre}.png',
                                         height: 80,
                                         fit: BoxFit.cover,
                                       ),
@@ -191,7 +195,7 @@ class _MyWidgetState extends State<MyWidget> {
                                       //                          'https://lotoven.com' +
                                       //                              prov.newArray02[index].urlimage,
                                       Image.asset(
-                                        prov.newArray02[index].nombre + '.png',
+                                        '${'assets/' + prov.newArray02[index].nombre}.png',
                                         //                   Image.network(
                                         //                    "https://qpewttmefqniyqflyjmu.supabase.co/storage/v1/object/public/media/imagenes/1687731106796000.jpg",
                                         height: 80,

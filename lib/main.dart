@@ -1,8 +1,12 @@
 //import 'dart:html';
 //import 'package:gotrue/src/types/provider.dart' hide Provider;
+import 'dart:html';
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resultados/start_page.dart';
+import 'package:resultados/usuarios.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'common.dart';
 import 'ganador.dart';
@@ -29,11 +33,43 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   User? _user;
+  String? usuarioActivo = "";
 
   @override
   void initState() {
-    _getAuth();
     super.initState();
+
+    _getAuth();
+    var isValido = false;
+    usuarioActivo = _user!.email?.trim();
+    leerUsuarios(usuarioActivo, isValido);
+    if (!isValido) {
+      avisar();
+    }
+  }
+
+  leerUsuarios(activo, isValido) async {
+    final data = await cliente
+        .from('usuarios')
+        .select(
+            'email,password,activo,nombre,apellidos,fechanac,fechainicio,fechafinal,superuser')
+        .eq('email', activo);
+    int count = data.length;
+    List<Usuarios> usuarios = [];
+    for (int i = 0; i < count; i++) {
+      usuarios.add(Usuarios.fromMap(data[i]));
+    }
+    if (usuarios[0].activo) {
+      isValido = true;
+    }
+    return isValido;
+  }
+
+  avisar() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Llamar a la administracion del Programa"),
+      backgroundColor: Colors.redAccent,
+    ));
   }
 
   Future<void> _getAuth() async {

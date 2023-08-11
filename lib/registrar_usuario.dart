@@ -29,7 +29,7 @@ class _RegistrarUsuarioState extends State<RegistrarUsuario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Venezueleando"),
+        title: const Text("Resultados"),
       ),
       body: Center(
         child: Form(

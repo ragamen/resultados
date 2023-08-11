@@ -26,146 +26,153 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Container(
-            height: 400,
-            width: 400,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 9, 209, 244),
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0xAA6EB1E6),
-                  offset: Offset(9, 9),
-                  blurRadius: 6,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                //email
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor completar Correo";
-                      }
-                      return null;
-                    },
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      label: Text("Correo"),
-                    ),
+    return Scaffold(
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Container(
+              height: 400,
+              width: 400,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 244, 244, 9),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xAA6EB1E6),
+                    offset: Offset(9, 9),
+                    blurRadius: 6,
                   ),
-                ),
-                // password
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor llenar clave de acceso";
-                      }
-                      return null;
-                    },
-                    obscureText: true,
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      label: Text("Clave"),
-                    ),
-                  ),
-                ),
-                //Sign in Bottom
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amberAccent,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xAA6EB1E6),
-                          offset: Offset(9, 9),
-                          blurRadius: 6,
-                        ),
-                      ],
-                    ),
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 10, //<-- SEE HERE
-                        shadowColor: const Color.fromARGB(255, 93, 90, 81),
-                        side: const BorderSide(
-                            color: Color.fromARGB(255, 66, 63, 63),
-                            width: 2), //<-- SEE HERE
-                      ),
-                      onPressed: () async {
-                        final isValid = _formKey.currentState?.validate();
-                        if (isValid != true) {
-                          return;
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //email
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Por favor completar Correo";
                         }
-
-                        try {
-                          await cliente.auth.signInWithPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text);
-                        } catch (e) {
-                          avisar();
-                        }
+                        return null;
                       },
-                      child: const Text("Ingresar"),
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        label: Text("Correo"),
+                      ),
                     ),
                   ),
-                ),
-                //Sign Up Botton
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrarUsuario()),
-                            );
-                          },
-                          child: const Text(
-                            "Registrate ?",
-                            style: TextStyle(color: Colors.white),
-                          )),
+                  // password
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Por favor llenar clave de acceso";
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        label: Text("Clave"),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RecuperarClave()),
-                            );
-                          },
-                          child: const Text(
-                            "Olvidaste Clave?",
-                            style: TextStyle(color: Colors.white),
-                          )),
+                  ),
+                  //Sign in Bottom
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.amberAccent,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xAA6EB1E6),
+                            offset: Offset(9, 9),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          elevation: 10, //<-- SEE HERE
+                          shadowColor: const Color.fromARGB(255, 93, 90, 81),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 66, 63, 63),
+                              width: 2), //<-- SEE HERE
+                        ),
+                        onPressed: () async {
+                          final isValid = _formKey.currentState?.validate();
+                          if (isValid != true) {
+                            return;
+                          }
+
+                          try {
+                            await cliente.auth.signInWithPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+                          } catch (e) {
+                            avisar();
+                          }
+                        },
+                        child: const Text("Ingresar"),
+                      ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  //Sign Up Botton
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrarUsuario()),
+                              );
+                            },
+                            child: const Text(
+                              "Registrate ?",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 17, 0, 0),
+                                  fontSize: 16),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecuperarClave()),
+                              );
+                            },
+                            child: const Text(
+                              "Olvidaste Clave?",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 20, 0, 0),
+                                  fontSize: 16),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

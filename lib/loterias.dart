@@ -217,7 +217,7 @@ class _LoteriasState extends State<Loterias> {
                             child: Column(
                               children: [
                                 Image.asset(
-                                  prov.newArray01[index].nombre + '.png',
+                                  '${'assets/' + prov.newArray01[index].nombre}.png',
                                   height: 80,
                                   fit: BoxFit.cover,
                                 ),
